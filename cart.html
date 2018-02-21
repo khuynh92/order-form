@@ -5,37 +5,38 @@
   <title>Cart</title>
   <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
   <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 </head>
 <body>
-  <h1>Check out</h1>
+  <h1 id="buscheckout">Bus Mall Check Out</h1>
+  <ul id="orderedItemList"></ul>
 
-  <ul id="orderedItemList">
-</ul>
  <div id='delivery-information'>
    <form id="order-form">
     <fieldset>
-    <legend>Delivery Information</legend>
-    First Name:<br />
-    <input type="text" name="first-name" value=""><br />
-    Last Name: <br />
-    <input type="text" name="last-name" value=""><br />
-    Street: <br />
-    <input type="text" name="street" value=""><br />
-    City: <br />
-    <input type="text" name="city" value=""><br />
-    State: <br />
-    <input type="text" name="state" value=""><br />
-    Zip-Code: <br />
-    <input type="text" name="zip" value=""><br />
-    Phone Number: <br />
-    <input type="text" name="phone" value=""><br />
-    Credit Card: <br />
-    <input type="number" name="creditcard" value=""><br />
-    <button type="submit">Process Order</button>
+      <legend>Delivery Information</legend><br>
+      First Name: <input type="text" name="first-name" value=""><br /><br>
+      <!-- <br /> -->
+      
+      Last Name: <input type="text" name="last-name" value=""><br /><br>
+      <!-- <br /> -->
+      Street: <input type="text" name="street" value=""><br /><br>
+      <!-- <br /> -->     
+      City: <input type="text" name="city" value=""><br /><br>
+      <!-- <br /> -->
+      State: <input type="text" name="state" value=""><br /><br>
+      <!-- <br /> -->
+      Zip-Code: <input type="text" name="zip" value=""><br /><br>
+      <!-- <br /> -->
+      Phone Number: <input type="text" name="phone" value=""><br /><br>
+      <!-- <br /> -->  
+      Credit Card:  <input type="number" name="creditcard" value=""><br /><br>
+      <!-- <br /> -->
+      <br>
+      <button type="submit">Process Order</button>
     </fieldset>
    </form>
- </div>
+ </div><br><br><br>
  <script src="app.js"></script>
 </body>
-
 </html>

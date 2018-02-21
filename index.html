@@ -5,9 +5,12 @@
     <title>Busmall Products</title>
     <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 </head>
 <body>
-    <h1>Please choose your product!</h1>
+    <br><br>
+    <h1 id="bus">Bus Mall</h1><br>
+    <p id = "head1">Please choose your product!</p><br><br><br>
     <select id = "products">
         <option value = "bag">Bag</option>
         <option value = "banana">Banana</option>
@@ -28,12 +31,13 @@
         <option value = "water-can">Water can</option>
         <option value = "wine-glass">Wine glass</option>
     </select>
-    <br><br>
+    <br><br><br><br><br>
+    <p id="quan">Enter quantity of your product:</p><br>
     <input type="number" id="quantity" min="1">
-    <br><br>
+    <br><br><br><br><br>
 
     <input type="submit" id = "addtocart" value = "Add to Cart"/>
-    <br><br>
+    <br><br><br><br>
     <input type="submit" id = "checkout" value = "Checkout" />
     <script src="app.js"></script>
 </body>
