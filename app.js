@@ -11,9 +11,10 @@ var orderedItemList = document.getElementById('orderedItemList');
 var orderedItem = [];
 
 //instead of Cartitem renaming as OrderedItem
-function OrderedItem(name, quantity) {
+function OrderedItem(name, quantity, filepath) {
   this.name = name;
   this.quantity = quantity;
+  this.filepath = filepath;
   orderedItem.push(this);
 }
 
@@ -25,14 +26,21 @@ function Product(name, filepath) {
 }
 
 function displayOrderedItemList () {
-  var liEl;
   var strOrderedItem = localStorage.getItem('orderedItem');
   var orderedItemStorage = JSON.parse(strOrderedItem);
 
   for (var i = 0; i<orderedItemStorage.length; i++){
-    liEl = document.createElement('li');
-    liEl.appendChild(document.createTextNode(orderedItemStorage[i].name + ' ' + orderedItemStorage[i].quantity));
+    var liEl = document.createElement('li');
+    var imgEl = document.createElement('img');
+    imgEl.src = orderedItemStorage[i].filepath;
+    liEl.appendChild(imgEl);
     orderedItemList.appendChild(liEl);
+    liEl.appendChild(document.createTextNode('Quantity: ' + orderedItemStorage[i].quantity));
+    var deleteBtn = document.createElement('input');
+    deleteBtn.id = orderedItemStorage[i].name;
+    deleteBtn.type = 'Submit';
+    deleteBtn.value = 'Delete Item(s)';
+    liEl.appendChild(deleteBtn);
   }
 }
 
@@ -74,6 +82,12 @@ function addToCartHandler(event) {
   event.preventDefault();
   var prodName = document.getElementById('products').value;
   var prodQuantity = parseInt(document.getElementById('quantity').value);
+  var prodFilepath;
+  if (prodName === 'usb') {
+    prodFilepath = 'images/' + prodName + '.gif';
+  } else {
+    prodFilepath = 'images/' + prodName + '.jpg';
+  }
 
   if (!prodName) {
     return alert('Please select your product!');
@@ -86,7 +100,7 @@ function addToCartHandler(event) {
 
   // Check the condition if cart is empty.
   if (orderedItem.length === 0){
-    new OrderedItem(prodName, prodQuantity);
+    new OrderedItem(prodName, prodQuantity, prodFilepath);
   }
   else{
     for (var j=0; j<orderedItem.length; j++){
@@ -99,7 +113,7 @@ function addToCartHandler(event) {
       }
       else {
       // There was no match, means this is a new product being added to the orderedItem list
-        new OrderedItem(prodName, prodQuantity);
+        new OrderedItem(prodName, prodQuantity, prodFilepath);
         found = true;
         // break from the for loop - else we will add the quantity twice.
       }
@@ -116,7 +130,9 @@ function addToCartHandler(event) {
 }
 
 //button is waiting to hear the click and then i call addtoCardHandler
-btn.addEventListener('click', addToCartHandler);
+if (btn) {
+  btn.addEventListener('click', addToCartHandler);
+}
 
 // Add handler for checkout button - which should store all the data in local
 // storage and then go to the cart.html page.
@@ -127,4 +143,23 @@ function checkoutHandler() {
   displayCheckoutList();
 }
 
-checkout.addEventListener('click', checkoutHandler);
+function deleteHandler(event) {
+  var orderedItemParsed = JSON.parse(strOrderedItem);
+
+  for (var k = 0; k < orderedItemParsed.length; k++) {
+    if (event.target.id === orderedItemParsed[k].name) {
+      orderedItemParsed.splice(k, 1);
+      var stringifyAgain = JSON.stringify(orderedItemParsed);
+      localStorage.orderedItem = stringifyAgain;
+      location.reload();
+    }
+  }
+}
+
+if (checkout) {
+  checkout.addEventListener('click', checkoutHandler);
+}
+
+if (orderedItemList) {
+  orderedItemList.addEventListener('click', deleteHandler);
+}

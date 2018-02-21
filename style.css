@@ -23,3 +23,11 @@ fieldset {
   margin: 0 auto;
 }
 
+img {
+  width: 300px;
+}
+
+input {
+  width: 100px;
+  height: 25px;
+}
