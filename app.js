@@ -1,12 +1,21 @@
 'use strict';
 
 Product.names = ['bag', 'banana', 'bathroom', 'boots', 'breakfast', 'bubblegum', 'chair', 'cthulhu', 'dog-duck', 'dragon', 'pen', 'pet-sweep', 'tauntaun', 'unicorn', 'usb', 'water-can', 'wine-glass'];
-Product.allProducts = [];
-var productnumber = document.getElementById('productnumber');
-var btn = document.getElementById('addtocart');
-var products = document.getElementById('products');
-var itemList = document.getElementById('item-list');
 
+Product.allProducts = [];
+
+var btn = document.getElementById('addtocart');
+var checkout = document.getElementById('checkout');
+var orderedItemList = document.getElementById('orderedItemList');
+
+var orderedItem = [];
+
+//instead of Cartitem renaming as OrderedItem
+function OrderedItem(name, quantity) {
+  this.name = name;
+  this.quantity = quantity;
+  orderedItem.push(this);
+}
 
 //constructor function for all products
 function Product(name, filepath) {
@@ -15,6 +24,27 @@ function Product(name, filepath) {
   Product.allProducts.push(this);
 }
 
+function displayOrderedItemList () {
+  var liEl;
+
+  for (var i = 0; i<orderedItem.length; i++){
+    var lastItem = orderedItem[i];
+  }
+  liEl = document.createElement('li');
+  liEl.appendChild(document.createTextNode(lastItem.name + ' ' + lastItem.quantity));
+  orderedItemList.appendChild(liEl);
+}
+
+function storeLocalStorage(){
+  var strOrderedItem = JSON.stringify(orderedItem);
+  localStorage.setItem('orderedItem', strOrderedItem);
+  console.log(strOrderedItem);
+}
+
+function displayCheckoutList() {
+
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // instantiating new Products with a for loop
 for (var i = 0; i < Product.names.length; i++) {
   if (Product.names[i] === 'usb') {
@@ -24,32 +54,77 @@ for (var i = 0; i < Product.names.length; i++) {
   }
 }
 
-if(localStorage.productnumber) {
-  var quantity = localStorage.productnumber.split(',');
-} else {
-  var quantity = [];
+//check if an exisisting cart is present or not
+if(localStorage.orderedItem) {
+  var strOrderedItem= localStorage.getItem('orderedItem');
+  var ordereditems = JSON.parse(strOrderedItem);
+  console.log(ordereditems);
+  for (var item of ordereditems) {
+    console.log(item);
+    new OrderedItem(item.name, item.quantity);
+  }
+  //call helper function to display cart list
+  displayOrderedItemList();
 }
 
-if(locaStorage.item) {
-  var item = localStorage.products.split(',');
-} else {
-  var item = [];
+// Add handler for add to cart button
+function addToCartHandler(event) {
+
+  event.preventDefault();
+  var prodName = document.getElementById('products').value;
+  var prodQuantity = parseInt(document.getElementById('quantity').value);
+
+  if (!prodName) {
+    return alert('Please select your product!');
+  }
+
+  if(!prodQuantity)
+  {
+    return alert('Please select your quantity!');
+  }
+
+  // Check the condition if cart is empty.
+  if (orderedItem.length === 0){
+    new OrderedItem(prodName, prodQuantity);
+  }
+  else{
+    for (var j=0; j<orderedItem.length; j++){
+      var found = false;
+      // Check if the product already exists in the orderdItems by comparing names.
+      if( prodName === orderedItem[j].name ){
+      // There is a match, product already exists, update the quantity.
+        orderedItem[j].quantity += prodQuantity;
+        found = true;
+      }
+      else {
+      // There was no match, means this is a new product being added to the orderedItem list
+        new OrderedItem(prodName, prodQuantity);
+        found = true;
+        // break from the for loop - else we will add the quantity twice.
+      }
+      if (found){
+        break;
+      }
+    }
+  }
+
+  // Update local storage
+  storeLocalStorage();
+  // Update display list.
+
+  displayOrderedItemList();
 }
 
-function save() {
-  quantity.push(productnumber.value);
-  console.log('quantity: ' + productnumber.value);
-  item.push(products.value);
-  console.log('item is: ' + products.value);
+//button is waiting to hear the click and then i call addtoCardHandler
+btn.addEventListener('click', addToCartHandler);
+
+// Add handler for checkout button - which should store all the data in local
+// storage and then go to the cart.html page.
+function checkoutHandler() {
+  event.preventDefault();
+  storeLocalStorage();
+  window.open('cart.html','_self');
+  displayCheckoutList();
 }
 
-function create() {
-  var selection = products.value;
-  var liEl = document.createElement('li');
-  liEl.appendChild(document.createTextNode(selection));
-  itemList.appendChild(liEl);
-  selection.value = null;
-  // a delete button
-  //
-}
-
+checkout.addEventListener('click', checkoutHandler);

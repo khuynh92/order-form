@@ -29,9 +29,14 @@
         <option value = "wine-glass">Wine glass</option>
     </select>
     <br><br>
-    <input type="number" id="productnumber" min="0">
+    <input type="number" id="quantity" min="1">
     <br><br>
-    <input type="submit"  id ="addtocart" value="Add to cart"/>
+    <div id="container">
+    <ul id="orderedItemList"></ul>
+    </div>
+    <input type="submit" id = "addtocart" value = "Add to Cart"/>
+    <br><br>
+    <input type="submit" id = "checkout" value = "Checkout" />
     <script src="app.js"></script>
 </body>
 </html>
