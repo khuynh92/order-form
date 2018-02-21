@@ -101,6 +101,7 @@ function addToCartHandler(event) {
   // Check the condition if cart is empty.
   if (orderedItem.length === 0){
     new OrderedItem(prodName, prodQuantity, prodFilepath);
+    alert('adding ' + prodQuantity + ' ' + prodName + '(s) to your cart!' );
   }
   else{
     for (var j=0; j<orderedItem.length; j++){
@@ -108,12 +109,14 @@ function addToCartHandler(event) {
       // Check if the product already exists in the orderdItems by comparing names.
       if( prodName === orderedItem[j].name ){
       // There is a match, product already exists, update the quantity.
+        alert('adding ' + prodQuantity + ' more ' + prodName + '(s) to your cart!' );
         orderedItem[j].quantity += prodQuantity;
         found = true;
       }
       else {
       // There was no match, means this is a new product being added to the orderedItem list
         new OrderedItem(prodName, prodQuantity, prodFilepath);
+        alert('adding ' + prodQuantity + ' ' + prodName + '(s) to your cart!' );
         found = true;
         // break from the for loop - else we will add the quantity twice.
       }
@@ -148,6 +151,7 @@ function deleteHandler(event) {
 
   for (var k = 0; k < orderedItemParsed.length; k++) {
     if (event.target.id === orderedItemParsed[k].name) {
+      alert('Deleting all ' + orderedItemParsed[k].name + '(s) from cart!');
       orderedItemParsed.splice(k, 1);
       var stringifyAgain = JSON.stringify(orderedItemParsed);
       localStorage.orderedItem = stringifyAgain;
