@@ -26,13 +26,14 @@ function Product(name, filepath) {
 
 function displayOrderedItemList () {
   var liEl;
+  var strOrderedItem = localStorage.getItem('orderedItem');
+  var orderedItemStorage = JSON.parse(strOrderedItem);
 
-  for (var i = 0; i<orderedItem.length; i++){
-    var lastItem = orderedItem[i];
+  for (var i = 0; i<orderedItemStorage.length; i++){
+    liEl = document.createElement('li');
+    liEl.appendChild(document.createTextNode(orderedItemStorage[i].name + ' ' + orderedItemStorage[i].quantity));
+    orderedItemList.appendChild(liEl);
   }
-  liEl = document.createElement('li');
-  liEl.appendChild(document.createTextNode(lastItem.name + ' ' + lastItem.quantity));
-  orderedItemList.appendChild(liEl);
 }
 
 function storeLocalStorage(){
@@ -112,7 +113,6 @@ function addToCartHandler(event) {
   storeLocalStorage();
   // Update display list.
 
-  displayOrderedItemList();
 }
 
 //button is waiting to hear the click and then i call addtoCardHandler
