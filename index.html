@@ -3,18 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <title>Busmall Products</title>
+    <link rel="stylesheet" type="text/css" media="screen" href="reset.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
 </head>
 <body>
-    <h1>Please choose your product!</h1>
-    <select name = "products">
+    <br><br>
+    <h1 id="bus">Bus Mall</h1><br>
+    <p id = "head1">Please choose your product!</p><br><br><br>
+    <select id = "products">
         <option value = "bag">Bag</option>
         <option value = "banana">Banana</option>
         <option value = "bathroom">Bathroom</option>
         <option value = "boots">Boots</option>
         <option value = "breakfast">Breakfast</option>
         <option value = "bubblegum">Bubblegum</option>
-        <option value = "bus-logo">Bus Logo</option>
         <option value = "chair">Chair</option>
         <option value = "cthulhu">Cthulhu</option>
         <option value = "dog-duck">Dog duck</option>
@@ -27,10 +30,14 @@
         <option value = "water-can">Water can</option>
         <option value = "wine-glass">Wine glass</option>
     </select>
-    <br><br>
-    <input type="number" min="0">
-    <br><br>
-    <input type="submit" name =" addtocart" value="Add to cart"/>
+    <br><br><br><br><br>
+    <p id="quan">Enter quantity of your product:</p><br>
+    <input type="number" id="quantity" min="1">
+    <br><br><br><br><br>
+
+    <input type="submit" id = "addtocart" value = "Add to Cart"/>
+    <br><br><br><br>
+    <input type="submit" id = "checkout" value = "Checkout" />
     <script src="app.js"></script>
 </body>
 </html>
