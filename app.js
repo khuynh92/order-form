@@ -103,11 +103,11 @@ function addToCartHandler(event) {
     new OrderedItem(prodName, prodQuantity, prodFilepath);
     alert('adding ' + prodQuantity + ' ' + prodName + '(s) to your cart!' );
   }
-  else{
+  else {
     for (var j=0; j<orderedItem.length; j++){
       var found = false;
       // Check if the product already exists in the orderdItems by comparing names.
-      if( prodName === orderedItem[j].name ){
+      if(prodName === orderedItem[j].name){
       // There is a match, product already exists, update the quantity.
         alert('adding ' + prodQuantity + ' more ' + prodName + '(s) to your cart!' );
         orderedItem[j].quantity += prodQuantity;
@@ -120,7 +120,7 @@ function addToCartHandler(event) {
         found = true;
         // break from the for loop - else we will add the quantity twice.
       }
-      if (found){
+      if (found === true){
         break;
       }
     }
